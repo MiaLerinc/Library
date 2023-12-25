@@ -19,13 +19,23 @@
                 <tr>
                     <th>id</th>
                     <th>Title</th>
+                    <th>Language</th>
+                    <th>Year of publication</th>
+                    <th>Author Name</th>
+                    <th>Author Surname</th>
+                    <th>Publisher</th>
                 </tr>
             </thead>
 
             <tbody>
-                <tr th:each="tempBook : ${books}">
+                <tr th:each="tempBook : ${bookTypes}">
                     <td th:text="${tempBook.id}"/>
                     <td th:text="${tempBook.title}"/>
+                    <td th:text="${tempBook.language}"/>
+                    <td th:text="${tempBook.yearOfPublication}"/>
+                    <td th:text="${tempBook.author.firstName}"/>
+                    <td th:text="${tempBook.author.lastName}"/>
+                    <td th:text="${tempBook.publisher.name}"/>
                 </tr>
             </tbody>
         </table>
