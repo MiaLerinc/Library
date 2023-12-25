@@ -1,7 +1,7 @@
 package com.legend.library.service;
 
 import com.legend.library.dao.BookRepository;
-import com.legend.library.model.Book;
+import com.legend.library.model.BookType;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -16,7 +16,7 @@ public class BookServiceImpl implements BookService{
     }
 
     @Override
-    public List<Book> findAll() {
+    public List<BookType> findAll() {
         return bookRepository.findAll();
     }
 }

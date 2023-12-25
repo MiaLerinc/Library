@@ -1,6 +1,6 @@
 package com.legend.library.controller;
 
-import com.legend.library.model.Book;
+import com.legend.library.model.BookType;
 import com.legend.library.service.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -21,9 +21,9 @@ public class BookController {
 
     @GetMapping("/list")
     public String getAllTheBooks(Model model) {
-        List<Book> books = bookService.findAll();
+        List<BookType> bookTypes = bookService.findAll();
 
-        model.addAttribute("books", books);
+        model.addAttribute("bookTypes", bookTypes);
 
         return "books/list-books";
     }
