@@ -1,0 +1,19 @@
+<div th:fragment="message">
+    <div class="modal" id="messageModal" tabindex="-1" aria-labelledby="messageModalLabel" aria-modal="true"
+         role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content" id="messageModalContent">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="messageModalLabel" th:text="${title}"></h5>
+                </div>
+                <div class="modal-body" id="author">
+                    <span th:text="${message}" id="message"></span>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" onclick="closeMessageModal()">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

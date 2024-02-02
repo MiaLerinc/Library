@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Objects;
 
 @Entity
-@Table(name="author")
+@Table(name="author", uniqueConstraints= @UniqueConstraint(columnNames={"first_name", "last_name"}))
 public class Author {
 
     @Id
@@ -95,9 +95,23 @@ public class Author {
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", nationality='" + nationality + '\'' +
-                ", aboutAuthor='" + aboutAuthor + '\'' +
-                ", bookTypes=" + bookTypes +
                 '}';
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Author author = (Author) o;
+        return id == author.id && Objects.equals(firstName, author.firstName) && Objects.equals(lastName, author.lastName) && Objects.equals(nationality, author.nationality) && Objects.equals(aboutAuthor, author.aboutAuthor) && Objects.equals(bookTypes, author.bookTypes);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, firstName, lastName, nationality, aboutAuthor, bookTypes);
+    }
+
 }
+
+
+

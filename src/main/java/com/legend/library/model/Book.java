@@ -3,7 +3,6 @@ package com.legend.library.model;
 import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
-import java.util.List;
 
 @Entity
 @Table(name="book")
@@ -14,31 +13,30 @@ public class Book{
     @Column(name="id")
     private int id;
 
-    @Column(name="landing_time")
-    private LocalDateTime landingTime;
+    @Column(name="lending_time")
+    private LocalDateTime lendingTime;
 
-    @Column(name="landed")
-    private boolean landed;
+    @Column(name="lent")
+    private boolean lent;
 
     @Column(name="deleted")
     private boolean deleted;
 
-    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE,
+    @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST,
             CascadeType.DETACH, CascadeType.REFRESH})
     @JoinColumn(name="member_id")
     private Member member;
 
-    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE,
-            CascadeType.DETACH, CascadeType.REFRESH})
+    @ManyToOne(cascade = {CascadeType.MERGE})
     @JoinColumn(name="book_type_id")
     private BookType bookType;
 
     public Book() {
     }
 
-    public Book(LocalDateTime landingTime, boolean landed, boolean deleted, BookType bookType) {
-        this.landingTime = landingTime;
-        this.landed = landed;
+    public Book(LocalDateTime lendingTime, boolean lent, boolean deleted, BookType bookType) {
+        this.lendingTime = lendingTime;
+        this.lent = lent;
         this.deleted = deleted;
         this.bookType = bookType;
     }
@@ -51,20 +49,20 @@ public class Book{
         this.id = id;
     }
 
-    public LocalDateTime getLandingTime() {
-        return landingTime;
+    public LocalDateTime getLendingTime() {
+        return lendingTime;
     }
 
-    public void setLandingTime(LocalDateTime landingTime) {
-        this.landingTime = landingTime;
+    public void setLendingTime(LocalDateTime lendingTime) {
+        this.lendingTime = lendingTime;
     }
 
-    public boolean isLanded() {
-        return landed;
+    public boolean isLent() {
+        return lent;
     }
 
-    public void setLanded(boolean landed) {
-        this.landed = landed;
+    public void setLent(boolean lent) {
+        this.lent = lent;
     }
 
     public boolean isDeleted() {
@@ -95,8 +93,8 @@ public class Book{
     public String toString() {
         return "Book{" +
                 "id=" + id +
-                ", landingTime=" + landingTime +
-                ", landed=" + landed +
+                ", lendingTime=" + lendingTime +
+                ", lent=" + lent +
                 ", deleted=" + deleted +
                 ", member=" + member +
                 ", bookType=" + bookType +

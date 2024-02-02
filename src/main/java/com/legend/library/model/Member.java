@@ -3,8 +3,8 @@ package com.legend.library.model;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 @Entity
 @Table(name = "member")
@@ -33,8 +33,8 @@ public class Member {
     @Column(name = "phone_number")
     private String phoneNumber;
 
-    @Column(name = "date_of_birth", nullable = false)
-    private LocalDate dateOfBirth;
+    @Column(name = "birth_date", nullable = false)
+    private LocalDate birthDate;
 
     @Column(name = "town")
     private String town;
@@ -42,8 +42,8 @@ public class Member {
     @Column(name = "country")
     private String country;
 
-    @Column(name = "date_of_signing", nullable = false)
-    private LocalDate dateOfSigning;
+    @Column(name = "enrollment_date", nullable = false)
+    private LocalDate enrollmentDate;
 
     @Column(name = "active", nullable = false)
     private boolean active;
@@ -55,18 +55,19 @@ public class Member {
     public Member() {
     }
 
-    public Member(String firstName, String lastName, String pin, String address, String email, String phoneNumber, LocalDate dateOfBirth, String town, String country, LocalDate dateOfSigning, boolean active) {
+    public Member(String firstName, String lastName, String pin, String address, String email, String phoneNumber, LocalDate birthDate, String town, String country, LocalDate enrollmentDate, boolean active) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.pin = pin;
         this.address = address;
         this.email = email;
         this.phoneNumber = phoneNumber;
-        this.dateOfBirth = dateOfBirth;
+        this.birthDate = birthDate;
         this.town = town;
         this.country = country;
-        this.dateOfSigning = dateOfSigning;
+        this.enrollmentDate = enrollmentDate;
         this.active = active;
+        this.books = new ArrayList<>();
     }
 
     public int getId() {
@@ -125,12 +126,12 @@ public class Member {
         this.phoneNumber = phoneNumber;
     }
 
-    public LocalDate getDateOfBirth() {
-        return dateOfBirth;
+    public LocalDate getBirthDate() {
+        return birthDate;
     }
 
-    public void setDateOfBirth(LocalDate dateOfBirth) {
-        this.dateOfBirth = dateOfBirth;
+    public void setBirthDate(LocalDate birthDate) {
+        this.birthDate = birthDate;
     }
 
     public String getTown() {
@@ -149,12 +150,12 @@ public class Member {
         this.country = country;
     }
 
-    public LocalDate getDateOfSigning() {
-        return dateOfSigning;
+    public LocalDate getEnrollmentDate() {
+        return enrollmentDate;
     }
 
-    public void setDateOfSigning(LocalDate dateOfSigning) {
-        this.dateOfSigning = dateOfSigning;
+    public void setEnrollmentDate(LocalDate enrollmentDate) {
+        this.enrollmentDate = enrollmentDate;
     }
 
     public boolean isActive() {
@@ -183,12 +184,11 @@ public class Member {
                 ", address='" + address + '\'' +
                 ", email='" + email + '\'' +
                 ", phoneNumber='" + phoneNumber + '\'' +
-                ", dateOfBirth=" + dateOfBirth +
+                ", birthDate=" + birthDate +
                 ", town='" + town + '\'' +
                 ", country='" + country + '\'' +
-                ", dateOfSigning=" + dateOfSigning +
+                ", enrollmentDate=" + enrollmentDate +
                 ", active=" + active +
-                ", books=" + books +
                 '}';
     }
 

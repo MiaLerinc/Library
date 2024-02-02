@@ -1,5 +1,6 @@
 package com.legend.library.model;
 
+import com.legend.library.enums.Genre;
 import jakarta.persistence.*;
 
 import java.util.List;
@@ -22,13 +23,10 @@ public class BookType {
     @JoinColumn(name="author_id", nullable = false)
     private Author author;
 
-    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE,
-                    CascadeType.DETACH, CascadeType.REFRESH})
-    @JoinTable(
-            name = "book_genre",
-            joinColumns = @JoinColumn(name = "book_id"),
-            inverseJoinColumns = @JoinColumn(name = "genre_id")
-    )
+    @ElementCollection(targetClass = Genre.class)
+    @CollectionTable(name = "book_type_genre", joinColumns = @JoinColumn(name = "book_type_id"))
+    @Enumerated(EnumType.STRING)
+    @Column(name="genre")
     private List<Genre> genre;
 
     @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE,
@@ -42,12 +40,16 @@ public class BookType {
     @Column(name="year_of_publication", nullable = false)
     private String yearOfPublication;
 
+    @Column(name="language", nullable = false)
     private String language;
+
+    @Column(name="number_of_copies", nullable = false)
+    private int numberOfCopies;
 
     public BookType() {
     }
 
-    public BookType(String title, Author author, List<Genre> genre, Publisher publisher, String shortDescription, String yearOfPublication, String language) {
+    public BookType(String title, Author author, List<Genre> genre, Publisher publisher, String shortDescription, String yearOfPublication, String language, int numberOfCopies) {
         this.title = title;
         this.author = author;
         this.genre = genre;
@@ -55,6 +57,7 @@ public class BookType {
         this.shortDescription = shortDescription;
         this.yearOfPublication = yearOfPublication;
         this.language = language;
+        this.numberOfCopies = numberOfCopies;
     }
 
     public int getId() {
@@ -121,6 +124,14 @@ public class BookType {
         this.language = language;
     }
 
+    public int getNumberOfCopies() {
+        return numberOfCopies;
+    }
+
+    public void setNumberOfCopies(int numberOfCopies) {
+        this.numberOfCopies = numberOfCopies;
+    }
+
     @Override
     public String toString() {
         return "BookType{" +
@@ -132,6 +143,7 @@ public class BookType {
                 ", shortDescription='" + shortDescription + '\'' +
                 ", yearOfPublication='" + yearOfPublication + '\'' +
                 ", language='" + language + '\'' +
+                ", numberOfCopies='" + numberOfCopies + '\'' +
                 '}';
     }
 
