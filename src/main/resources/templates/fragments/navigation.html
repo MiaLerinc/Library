@@ -1,0 +1,13 @@
+
+<div th:fragment="navbar">
+    <nav class="navbar navbar-expand navbar-dark bg-dark" >
+        <div class="collapse navbar-collapse container" id="navbarNavAltMarkup">
+            <div class="navbar-nav" onclick="onNavClick()">
+                <a class="nav-item nav-link" th:href="@{/books/list}" style="font-size: large;">Books</a>
+                <a class="nav-item nav-link" th:href="@{/authors/list}" style="font-size: large;">Authors</a>
+                <a class="nav-item nav-link" th:href="@{/publishers/list}" style="font-size: large;">Publishers</a>
+                <a class="nav-item nav-link" th:href="@{/members/list}" style="font-size: large;">Members</a>
+            </div>
+        </div>
+    </nav>
+</div>

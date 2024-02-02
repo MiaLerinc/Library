@@ -3,9 +3,10 @@ package com.legend.library.model;
 import jakarta.persistence.*;
 
 import java.util.List;
+import java.util.Objects;
 
 @Entity
-@Table(name="publisher")
+@Table(name="publisher", uniqueConstraints= @UniqueConstraint(columnNames={"name"}))
 public class Publisher {
 
     @Id
@@ -55,10 +56,20 @@ public class Publisher {
     public String toString() {
         return "Publisher{" +
                 "id=" + id +
-                ", name='" + name + '\'' +
-                ", bookTypes=" + bookTypes +
+                ", name='" + name +
                 '}';
     }
 
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Publisher publisher)) return false;
+        return id == publisher.id && Objects.equals(name, publisher.name) && Objects.equals(bookTypes, publisher.bookTypes);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, name, bookTypes);
+    }
 }

@@ -1,0 +1,44 @@
+body {
+    background:radial-gradient(circle, rgba(250,250,250,1) 0%, rgba(219,219,219,1) 100%);
+}
+
+.form-control {
+border: 1px solid #adb5bd;
+}
+
+.modal-background {
+   background: radial-gradient(circle, rgba(250,250,250,1) 0%, rgba(219,219,219,1) 100%);
+}
+
+.modal-header {
+    padding:10px;
+    border-bottom-color: rgb(255, 255, 255,70%);
+}
+
+.modal-footer {
+    padding:10px;
+    border-top-color: rgb(255, 255, 255,70%);
+}
+
+::-webkit-scrollbar {
+    width: 12px;
+}
+
+::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(200,200,200,1);
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    background-color:rgb(255, 255, 255);
+    -webkit-box-shadow: inset 0 0 6px rgba(90,90,90,0.9);
+}
+
+.modal-error {
+    background: #D2042D;
+}
+
+.modal-success {
+    background: #50C878;
+}
