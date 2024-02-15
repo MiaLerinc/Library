@@ -1,6 +1,9 @@
 package com.legend.library.controller;
 
+
 import com.legend.library.model.Publisher;
+import com.legend.library.pojo.DetailedBookInfo;
+import com.legend.library.service.BookService;
 import com.legend.library.service.PublisherService;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,17 +20,29 @@ import java.util.List;
 public class PublisherController {
 
     private PublisherService publisherService;
+    private BookService bookService;
 
     @Autowired
-    public PublisherController(PublisherService publisherService) {
+    public PublisherController(PublisherService publisherService, BookService bookService) {
         this.publisherService = publisherService;
+        this.bookService = bookService;
     }
 
     @GetMapping("/list")
-    public String getAllThePublishers(Model model) {
-        List<Publisher> publishers = publisherService.findAll();
+    public String getAllThePublishers(Model model, String filterText) {
+        if(filterText != null) {
+            filterText = filterText.trim();
+        }
+        List<Publisher> publishers;
+        if(filterText == null || filterText.isEmpty()){
+            publishers = publisherService.findAll();
+        }else {
+            publishers = publisherService.findPublishersByFilterText(filterText);
+        }
 
         model.addAttribute("publishers", publishers);
+        model.addAttribute("filterText", filterText);
+
         return "publisher/list-publishers";
     }
 
@@ -73,5 +88,19 @@ public class PublisherController {
 
         String referer = request.getHeader("Referer");
         return "redirect:"+ referer;
+    }
+
+    @GetMapping("/info")
+    public String showInfoModal(@RequestParam("publisherId") int theId,
+                                Model theModel) {
+
+        Publisher publisher = publisherService.findById(theId);
+
+        List<DetailedBookInfo> books= bookService.getDetailedBookInfoByPublisherId(theId);
+
+        theModel.addAttribute("infoPublisher", publisher);
+        theModel.addAttribute("books", books);
+
+        return "publisher/info-publisher";
     }
 }

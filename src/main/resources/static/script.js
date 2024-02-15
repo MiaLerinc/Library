@@ -1,6 +1,7 @@
 document.addEventListener('DOMContentLoaded', function() {
-    document.querySelectorAll(".nav-link").forEach((link) => {
-        if (window.location.href.includes(link.href)) {
+let a = document.querySelectorAll(".nav-link");
+    a.forEach((link) => {
+        if ((link.href.length === 0 && window.location.href.includes("/books/")) || (link.href.length > 0 && window.location.href.includes(link.href))) {
             link.classList.add("active");
             link.setAttribute("aria-current", "page");
         }
@@ -27,6 +28,11 @@ function closePublisherModal() {
     closeModal(publisherModal);
 }
 
+function closeBookModal() {
+    let bookModal = document.getElementById('bookModal');
+    closeModal(bookModal);
+}
+
 function addAuthor() {
             fetch('/authors/add')
                 .then(response => {
@@ -36,7 +42,6 @@ function addAuthor() {
                     return response.text();
                 })
                 .then(html => {
-                    // Insert the dialog content into the container
                     document.getElementById('dialogContainer').innerHTML = html;
                 })
                 .then(() => {
@@ -56,7 +61,6 @@ function addPublisher() {
                     return response.text();
                 })
                 .then(html => {
-                    // Insert the dialog content into the container
                     document.getElementById('dialogContainer').innerHTML = html;
                 })
                 .then(() => {
@@ -67,6 +71,26 @@ function addPublisher() {
                 .catch(error => console.error('Error fetching dialog content:', error));
 
         }
+
+        function addBook() {
+                    fetch('/books/addBook')
+                        .then(response => {
+                            if (!response.ok) {
+                                throw new Error('Network response was not ok');
+                            }
+                            return response.text();
+                        })
+                        .then(html => {
+                            document.getElementById('dialogContainer').innerHTML = html;
+                        })
+                        .then(() => {
+                            let bookModal = document.getElementById('bookModal');
+                            openModal(bookModal);
+                        })
+                        .then(openPublisherModal)
+                        .catch(error => console.error('Error fetching dialog content:', error));
+
+                }
 
     function onlyNumberKey(evt) {
         let ASCIICode = (evt.which) ? evt.which : evt.keyCode
@@ -89,12 +113,17 @@ function addPublisher() {
     }
 
     function closeMessageModal() {
+        let messageModal = document.getElementById('messageModal');
         messageModal.style.display = "none"
         messageModal.classList.remove("show")
     }
 document.addEventListener('DOMContentLoaded', function() {
-    let message = document.getElementById("message").innerText.trim();
-        if (message.length > 0) {
+    let message = document.getElementById("message")?.innerText?.trim();
+        if (typeof message != "undefined" && message.length > 0) {
             openMessageModal();
         }
 }, false);
+
+    function disableInput(evt) {
+        return false;
+    }

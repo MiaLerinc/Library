@@ -2,11 +2,35 @@
 <div th:fragment="navbar">
     <nav class="navbar navbar-expand navbar-dark bg-dark" >
         <div class="collapse navbar-collapse container" id="navbarNavAltMarkup">
-            <div class="navbar-nav" onclick="onNavClick()">
-                <a class="nav-item nav-link" th:href="@{/books/list}" style="font-size: large;">Books</a>
-                <a class="nav-item nav-link" th:href="@{/authors/list}" style="font-size: large;">Authors</a>
-                <a class="nav-item nav-link" th:href="@{/publishers/list}" style="font-size: large;">Publishers</a>
-                <a class="nav-item nav-link" th:href="@{/members/list}" style="font-size: large;">Members</a>
+            <div class="navbar-nav" >
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/members/lending}" style="font-size: large;">Lending</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/members/returning}" style="font-size: large;">Returning</a>
+                </li>
+
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" id="navbarDarkDropdownMenuLink" role="button"
+                       style="font-size: large;"data-bs-toggle="dropdown" aria-expanded="false">
+                        Books
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <li><a class="dropdown-item" th:href="@{/books/findBooks}">Find books</a></li>
+                        <li><a class="dropdown-item" th:href="@{/books/bookManagement}">Book management</a></li>
+                        <li><div class="dropdown-divider"></div></li>
+                        <li><a class="dropdown-item" th:href="@{/books/bookTypesList}">Book Types</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/authors/list}" style="font-size: large;">Authors</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/publishers/list}" style="font-size: large;">Publishers</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/members/list}" style="font-size: large;">Members</a>
+                </li>
             </div>
         </div>
     </nav>

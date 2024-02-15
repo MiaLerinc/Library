@@ -4,16 +4,19 @@
     <meta charset="UTF-8">
     <title>Authors</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
     <link href="https://use.fontawesome.com/releases/v5.0.8/css/all.css" rel="stylesheet">
     <link rel="stylesheet" th:href="@{/style.css}">
     <script type="text/javascript" th:src="@{/script.js}" ></script>
 
 </head>
 <body>
-<div th:replace="fragments/navigation :: navbar"></div>
+<div th:replace="~{fragments/navigation :: navbar}"></div>
 <div class="container">
-    <div th:replace="fragments/messageOfSuccess :: message"></div>
+    <div th:replace="~{fragments/messageOfSuccess :: message}"></div>
     <h3>Authors</h3>
     <hr>
 
@@ -61,10 +64,9 @@
             <td th:text="${author.firstName}"></td>
             <td th:text="${author.nationality}"></td>
             <td>
-                <a th:href="@{/authors/info(authorId=${author.id})}"
-                   class="btn btn-info btn-sm"><i class="fa fa-info"></i>
-                    Info
-                </a>
+                <button type="button" th:data-name="${author.id}" class="btn btn-info btn-sm"
+                        style="width: max-content" onclick="infoAuthor(this.getAttribute('data-name'))">
+                    <i class="fa fa-info"></i>Info</button>
             </td>
             <td>
                 <button type="button" th:data-name="${author.id}" class="btn btn-secondary btn-sm"
@@ -88,7 +90,6 @@
                 return response.text();
             })
             .then(html => {
-                // Insert the dialog content into the container
                 document.getElementById('dialogContainer').innerHTML = html;
             })
             .then(() => {
@@ -98,5 +99,28 @@
             .catch(error => console.error('Error fetching dialog content:', error));
 
     }
+    function infoAuthor(id) {
+    fetch('/authors/info?authorId='+ id)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.text();
+            })
+            .then(html => {
+                document.getElementById('dialogContainer').innerHTML = html;
+            })
+            .then(() => {
+                let authorInfoModal = document.getElementById('authorInfoModal');
+                openModal(authorInfoModal);
+            })
+            .catch(error => console.error('Error fetching dialog content:', error));
+
+    }
+
+    function closeAuthorInfoModal() {
+    let authorInfoModal = document.getElementById('authorInfoModal');
+    closeModal(authorInfoModal);
+}
 </script>
 </html>

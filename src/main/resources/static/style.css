@@ -42,3 +42,7 @@ border: 1px solid #adb5bd;
 .modal-success {
     background: #50C878;
 }
+
+.info-table td {
+    padding:10px;
+}

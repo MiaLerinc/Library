@@ -89,6 +89,18 @@ public class Book{
         this.bookType = bookType;
     }
 
+    public void lendBook (Book book, Member member) {
+        book.setMember(member);
+        book.setLent(true);
+        book.setLendingTime(LocalDateTime.now());
+    }
+
+    public void returnBook (Book book) {
+        book.setMember(null);
+        book.setLent(false);
+        book.setLendingTime(null);
+    }
+
     @Override
     public String toString() {
         return "Book{" +

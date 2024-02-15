@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Members</title>
+    <title>Books</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -17,12 +17,12 @@
 <div th:replace="~{fragments/navigation :: navbar}"></div>
 <div class="container">
 
-    <h3>Members</h3>
-    <hr>
+        <h3>Book Types</h3>
+        <hr>
     <div id="dialogContainer"></div>
     <div style="overflow: auto;">
         <div style="float:left" class="col-3">
-            <form th:action="@{/members/list}" method="GET" autocomplete="off">
+            <form th:action="@{/books/bookTypesList}" method="GET" autocomplete="off">
                 <table style="width:100%">
                     <tbody style="width: -webkit-fill-available;">
                     <tr>
@@ -38,7 +38,7 @@
             </form>
         </div>
         <div style="float:right" class="col">
-            <a th:href="@{/members/add}"
+            <a th:href="@{/books/addBookType}"
                class="btn btn-primary"><i class="fa fa-plus"></i>
                 Add New
             </a>
@@ -50,42 +50,43 @@
     <table class="table table-border table-striped">
         <thead class="table-dark">
         <tr>
-            <th>ID</th>
-            <th>Member</th>
-            <th>Number of lent books</th>
-            <th>Active</th>
-            <th>Info</th>
+            <th>Id</th>
+            <th>Title</th>
+            <th>Author</th>
+            <th>Publisher</th>
+            <th>Year of publication</th>
+            <th>Language</th>
+            <th>Genre</th>
             <th>Edit</th>
         </tr>
         </thead>
 
         <tbody>
-        <tr th:each="member : ${members}">
-            <td th:text="${member.id}" ></td>
-            <td th:text="${member.firstName} + ' ' + ${member.lastName}"></td>
-            <td th:text="${member.books.size}"></td>
-            <td th:text="${member.active}"></td>
+        <tr th:each="tempBook : ${books}">
+            <td th:text="${tempBook.id}"/>
+            <td th:text="${tempBook.title}"/>
+            <td th:text="${tempBook.author.firstName} + ' ' + ${tempBook.author.lastName}"/>
+            <td th:text="${tempBook.publisher.name}"/>
+            <td th:text="${tempBook.yearOfPublication}"/>
+            <td th:text="${tempBook.language}"/>
+            <td th:text="${tempBook.genreString}" />
             <td>
-                <button type="button" th:data-name="${member.id}" class="btn btn-info btn-sm"
-                        style="width: max-content" onclick="infoMember(this.getAttribute('data-name'))">
-                    <i class="fa fa-info"></i>Info</button>
-            </td>
-            <td>
-                <a th:href="@{/members/update(memberId=${member.id})}"
+                <a th:href="@{/books/updateBookType(bookTypeId=${tempBook.id})}"
                    class="btn btn-secondary btn-sm"> <i class="fa fa-edit"></i>
                     Edit
                 </a>
             </td>
+
         </tr>
         </tbody>
     </table>
-</div>
+    </div>
 
 </body>
 
 <script>
-    function infoMember(id) {
-    fetch('/members/info?memberId='+ id)
+    function infoBook(bookTitle, authorId) {
+    fetch('/books/info?bookTitle=' + bookTitle + '&authorId=' + authorId)
             .then(response => {
                 if (!response.ok) {
                     throw new Error('Network response was not ok');
@@ -96,16 +97,16 @@
                 document.getElementById('dialogContainer').innerHTML = html;
             })
             .then(() => {
-                let memberInfoModal = document.getElementById('memberInfoModal');
-                openModal(memberInfoModal);
+                let bookInfoModal = document.getElementById('bookInfoModal');
+                openModal(bookInfoModal);
             })
             .catch(error => console.error('Error fetching dialog content:', error));
 
     }
 
-    function closeMemberInfoModal() {
-    let memberInfoModal = document.getElementById('memberInfoModal');
-    closeModal(memberInfoModal);
+    function closeBookInfoModal() {
+    let bookInfoModal = document.getElementById('bookInfoModal');
+    closeModal(bookInfoModal);
 }
 </script>
 </html>

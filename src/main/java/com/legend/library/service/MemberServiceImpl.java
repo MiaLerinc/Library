@@ -39,7 +39,6 @@ public class MemberServiceImpl implements MemberService{
             member = result.get();
         }
         else {
-            // we didn't find the employee
             throw new RuntimeException("Did not find member id - " + id);
         }
         return member;

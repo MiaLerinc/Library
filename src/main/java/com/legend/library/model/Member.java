@@ -1,9 +1,11 @@
 package com.legend.library.model;
 
 import jakarta.persistence.*;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -34,6 +36,7 @@ public class Member {
     private String phoneNumber;
 
     @Column(name = "birth_date", nullable = false)
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate birthDate;
 
     @Column(name = "town")
@@ -172,6 +175,17 @@ public class Member {
 
     public void setBooks(List<Book> books) {
         this.books = books;
+    }
+
+    public void addBook(Book book) {
+        if(this.books == null) {
+            this.books = new ArrayList<>();
+        }
+        this.books.add(book);
+    }
+
+    public void returnBook(Book book) {
+        this.books.remove(book);
     }
 
     @Override
