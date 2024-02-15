@@ -1,8 +1,9 @@
 package com.legend.library.controller;
 
 import com.legend.library.model.Author;
-import com.legend.library.model.Member;
+import com.legend.library.pojo.DetailedBookInfo;
 import com.legend.library.service.AuthorService;
+import com.legend.library.service.BookService;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -18,15 +19,19 @@ import java.util.List;
 public class AuthorController {
 
     private AuthorService authorService;
+    private BookService bookService;
 
     @Autowired
-    public AuthorController(AuthorService authorService) {
+    public AuthorController(AuthorService authorService, BookService bookService) {
         this.authorService = authorService;
+        this.bookService = bookService;
     }
 
     @GetMapping("/list")
     public String getAllTheAuthors(Model model, String filterText) {
-
+        if(filterText != null) {
+            filterText = filterText.trim();
+        }
         List<Author> authors;
         if(filterText == null || filterText.isEmpty()){
             authors = authorService.findAll();
@@ -82,5 +87,19 @@ public class AuthorController {
 
         String referer = request.getHeader("Referer");
         return "redirect:"+ referer;
+    }
+
+    @GetMapping("/info")
+    public String showInfoModal(@RequestParam("authorId") int theId,
+                                Model theModel) {
+
+        Author author = authorService.findById(theId);
+
+        List<DetailedBookInfo> books= bookService.getDetailedBookInfoByAuthorId(theId);
+
+        theModel.addAttribute("infoAuthor", author);
+        theModel.addAttribute("books", books);
+
+        return "author/info-author";
     }
 }

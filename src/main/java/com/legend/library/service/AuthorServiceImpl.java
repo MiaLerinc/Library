@@ -37,7 +37,6 @@ public class AuthorServiceImpl implements AuthorService {
             author = result.get();
         }
         else {
-            // we didn't find the employee
             throw new RuntimeException("Did not find author id - " + id);
         }
         return author;

@@ -43,13 +43,10 @@ public class BookType {
     @Column(name="language", nullable = false)
     private String language;
 
-    @Column(name="number_of_copies", nullable = false)
-    private int numberOfCopies;
-
     public BookType() {
     }
 
-    public BookType(String title, Author author, List<Genre> genre, Publisher publisher, String shortDescription, String yearOfPublication, String language, int numberOfCopies) {
+    public BookType(String title, Author author, List<Genre> genre, Publisher publisher, String shortDescription, String yearOfPublication, String language) {
         this.title = title;
         this.author = author;
         this.genre = genre;
@@ -57,7 +54,6 @@ public class BookType {
         this.shortDescription = shortDescription;
         this.yearOfPublication = yearOfPublication;
         this.language = language;
-        this.numberOfCopies = numberOfCopies;
     }
 
     public int getId() {
@@ -124,12 +120,15 @@ public class BookType {
         this.language = language;
     }
 
-    public int getNumberOfCopies() {
-        return numberOfCopies;
-    }
-
-    public void setNumberOfCopies(int numberOfCopies) {
-        this.numberOfCopies = numberOfCopies;
+    public String getGenreString() {
+        StringBuilder sb = new StringBuilder();
+        for(Genre g : genre) {
+            if(!sb.isEmpty()) {
+                sb.append(", ");
+            }
+            sb.append(g.getLabel());
+        }
+        return sb.toString();
     }
 
     @Override
@@ -143,7 +142,6 @@ public class BookType {
                 ", shortDescription='" + shortDescription + '\'' +
                 ", yearOfPublication='" + yearOfPublication + '\'' +
                 ", language='" + language + '\'' +
-                ", numberOfCopies='" + numberOfCopies + '\'' +
                 '}';
     }
 

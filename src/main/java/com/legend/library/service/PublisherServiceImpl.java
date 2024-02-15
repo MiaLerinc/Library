@@ -38,10 +38,14 @@ public class PublisherServiceImpl implements PublisherService {
             publisher = result.get();
         }
         else {
-            // we didn't find the employee
             throw new RuntimeException("Did not find author id - " + id);
         }
         return publisher;
+    }
+
+    @Override
+    public List<Publisher> findPublishersByFilterText(String filterText) {
+        return publisherRepository.findPublishersByFilterText(filterText);
     }
 
 }

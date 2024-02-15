@@ -11,4 +11,5 @@ public interface PublisherService {
     void addPublisher(Publisher publisher);
 
     Publisher findById(int id);
+    List<Publisher> findPublishersByFilterText(String filterText);
 }
