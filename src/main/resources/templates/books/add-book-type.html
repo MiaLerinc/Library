@@ -19,7 +19,7 @@
     <h3>Book Directory</h3>
     <hr>
 
-    <p class="h4 mb-4">Add Books</p>
+    <p class="h4 mb-4" th:text="${title}"></p>
 
 
     <div id="dialogContainer"></div>
@@ -30,7 +30,7 @@
           th:object="${bookType}" method="POST" autocomplete="off">
 
         <input type="text" class="form-control" id="id" th:field="*{id}" style="display:none">
-        <input type="text" class="form-control" id="isNew" th:field="${isNew}" style="display:none">
+
 
         <table style="width:100%">
             <tr>
@@ -133,8 +133,8 @@
                     </table>
                 </td>
 
-                <td style="float:right; ${isNew} ? 'visibility:visible' : 'visibility:hidden'">
-                    <table>
+                <td style="float:right;" >
+                    <table th:style="${isNew == 1 ? 'visibility: visible' : 'visibility: hidden'}">
                         <tbody style="width: -webkit-fill-available;">
                         <tr>
                             <td>
@@ -143,6 +143,7 @@
                             <td style="width:100px; padding-left: 20px">
                                 <input type="number" step="1" min="1" name="numberOfCopies" th:value="${numberOfCopies}" id="copies"
                                        class="form-control" required>
+                                <input type="text" name="isNew" id="isNew" th:value="${isNew}" style="display:none" required>
                             </td>
                         </tr>
                         </tbody>

@@ -135,5 +135,37 @@
     function memberRowClicked(chosenMember) {
         document.getElementById('chosenMember').setAttribute('value', chosenMember);
     }
+
+
+    var selectedRowsBookTable = null;
+    var selectedRowsMemberTable = null;
+
+    $(document).on('click', '#bookTable td', bookTableSelection);
+    $(document).on('click', '#memberTable td', memberTableSelection);
+
+    function bookTableSelection(event) {
+        if(event.target.nodeName === 'TD') {
+            if (selectedRowsBookTable) {
+                selectedRowsBookTable.classList.remove('selected-row');
+            }
+            event.target.closest('tr').classList.add('selected-row');
+            selectedRowsBookTable = event.target.closest('tr');
+        }
+    }
+
+    function memberTableSelection(event) {
+        if(event.target.nodeName === 'TD') {
+            if (selectedRowsMemberTable) {
+                selectedRowsMemberTable.classList.remove('selected-row');
+            }
+            event.target.closest('tr').classList.add('selected-row');
+            selectedRowsMemberTable = event.target.closest('tr');
+        }
+    }
+
+
+
+
+
 </script>
 </html>
