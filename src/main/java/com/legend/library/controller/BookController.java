@@ -104,7 +104,9 @@ public class BookController {
 
         theModel.addAttribute("numberOfCopies", 1);
 
-        theModel.addAttribute("isNew", true);
+        theModel.addAttribute("isNew", 1);
+        theModel.addAttribute("title", "Add Books");
+
 
         return "books/add-book-type";
     }
@@ -134,20 +136,22 @@ public class BookController {
         }
         theModel.addAttribute("languages", allLanguages);
 
-        theModel.addAttribute("numberOfCopies", 0);
+        theModel.addAttribute("numberOfCopies", 1);
 
-        theModel.addAttribute("isNew", false);
+        theModel.addAttribute("isNew", 0);
+        theModel.addAttribute("title", "Edit Book Type");
+
 
         // send over to our form
         return "books/add-book-type";
     }
 
     @PostMapping("/saveBookType")
-    public String saveBookTypes(@ModelAttribute("bookType") BookType bookType, @RequestParam("numberOfCopies") int numberOfCopies, @RequestParam("isNew") boolean isNew) {
+    public String saveBookTypes(@ModelAttribute("bookType") BookType bookType, @RequestParam("isNew") int isNew, @RequestParam("numberOfCopies") int numberOfCopies) {
 
         bookTypeService.addBookType(bookType);
 
-        if(isNew) {
+        if(isNew == 1) {
             bookService.addAllBooks(bookType, numberOfCopies);
         }
 

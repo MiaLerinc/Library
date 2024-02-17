@@ -46,3 +46,7 @@ border: 1px solid #adb5bd;
 .info-table td {
     padding:10px;
 }
+
+.selected-row > td {
+    background-color: #0dcaf0;
+}

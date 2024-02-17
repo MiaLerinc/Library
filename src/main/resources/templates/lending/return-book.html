@@ -51,7 +51,7 @@
     </div>
 
     <hr>
-    <div style="float:left" class="col-6">
+    <div style="float:left" class="col-12">
         <div id="bookContainer"></div>
     </div>
 
@@ -89,5 +89,15 @@
     function bookRowClicked(chosenBook) {
         document.getElementById('chosenBook').setAttribute('value', chosenBook);
     }
+
+    $(document).click(function(event) {
+    if(event.target.nodeName === 'TD') {
+        var selectedRow = this.querySelector('.selected-row');
+        if (selectedRow) {
+            selectedRow.classList.remove('selected-row');
+        }
+        event.target.closest('tr').classList.add('selected-row');
+    }
+});
 </script>
 </html>
