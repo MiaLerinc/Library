@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
     <title>Books</title>
@@ -54,7 +55,7 @@
             <th>Id - BookType</th>
             <th>Date of lending</th>
             <th>Info</th>
-            <th>Delete</th>
+            <th sec:authorize="hasAuthority('ROLE_MANAGER')">Delete</th>
         </tr>
         </thead>
 
@@ -68,7 +69,7 @@
                         style="width: max-content" onclick="infoBook(this.getAttribute('data-name'))">
                     <i class="fa fa-info"></i>Info</button>
             </td>
-            <td>
+            <td sec:authorize="hasAuthority('ROLE_MANAGER')" >
                 <a th:href="@{/books/delete(bookId=${tempBook.id})}"
                    class="btn btn-danger btn-sm py-1 "
                    th:data-confirm-delete="|Are you sure you want to delete book with id = ${tempBook.id}?|"
