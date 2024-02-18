@@ -9,7 +9,7 @@ import java.util.Date;
 import java.util.List;
 
 @Entity
-@Table(name = "member")
+@Table(name = "member", uniqueConstraints= @UniqueConstraint(columnNames={"pin"}))
 public class Member {
 
     @Id
