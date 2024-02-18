@@ -75,8 +75,11 @@ public class MemberController {
             member.setEnrollmentDate(LocalDate.now());
             member.setBooks(new ArrayList<>());
         }
-
-        memberService.addMember(member);
+        try{
+            memberService.addMember(member);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
         return "redirect:/members/list";
     }

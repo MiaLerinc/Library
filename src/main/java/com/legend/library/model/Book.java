@@ -16,11 +16,8 @@ public class Book{
     @Column(name="lending_time")
     private LocalDateTime lendingTime;
 
-    @Column(name="lent")
+    @Column(name="lent", nullable = false)
     private boolean lent;
-
-    @Column(name="deleted")
-    private boolean deleted;
 
     @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST,
             CascadeType.DETACH, CascadeType.REFRESH})
@@ -28,16 +25,15 @@ public class Book{
     private Member member;
 
     @ManyToOne(cascade = {CascadeType.MERGE})
-    @JoinColumn(name="book_type_id")
+    @JoinColumn(name="book_type_id", nullable = false)
     private BookType bookType;
 
     public Book() {
     }
 
-    public Book(LocalDateTime lendingTime, boolean lent, boolean deleted, BookType bookType) {
+    public Book(LocalDateTime lendingTime, boolean lent, BookType bookType) {
         this.lendingTime = lendingTime;
         this.lent = lent;
-        this.deleted = deleted;
         this.bookType = bookType;
     }
 
@@ -63,14 +59,6 @@ public class Book{
 
     public void setLent(boolean lent) {
         this.lent = lent;
-    }
-
-    public boolean isDeleted() {
-        return deleted;
-    }
-
-    public void setDeleted(boolean deleted) {
-        this.deleted = deleted;
     }
 
     public Member getMember() {
@@ -107,7 +95,6 @@ public class Book{
                 "id=" + id +
                 ", lendingTime=" + lendingTime +
                 ", lent=" + lent +
-                ", deleted=" + deleted +
                 ", member=" + member +
                 ", bookType=" + bookType +
                 '}';
